@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS consent_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    patient_name TEXT,
+    org_name TEXT,
+    data_type BLOB,      -- Encrypted
+    purpose BLOB,        -- Encrypted
+    days INTEGER,
+    status TEXT,
+    created_at TEXT
+);

@@ -1,0 +1,27 @@
+import streamlit as st
+from security.hashing import logs, verify_logs
+
+st.title("Security Audit Logs")
+
+st.markdown("This page shows all consent actions recorded using SHA-256 hashing.")
+
+# Verify integrity
+if verify_logs():
+    st.success("All logs are valid and untampered ")
+else:
+    st.error(" WARNING: Logs have been tampered!")
+
+st.write("---")
+
+if len(logs) == 0:
+    st.info("No logs yet.")
+else:
+    for i, log in enumerate(logs):
+        st.write("------")
+        st.write(f" Log #{i+1}")
+        st.write(f"**Action:** {log['action']}")
+        st.write(f"**User:** {log['user']}")
+        st.write(f"**Details:** {log['details']}")
+        st.write(f"**Timestamp:** {log['timestamp']}")
+        st.code(f"Hash: {log['hash']}")
+        st.code(f"Previous Hash: {log['prev_hash']}")
